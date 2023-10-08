@@ -1,3 +1,28 @@
+
+ok sotto ci sono un sacco di istruzioni ma io qui ti metto degli indirizzi di wallet per testare se le tue logiche producono tasse ok guarda le foto!
+
+ProgettoA Wallet: 0x32050722f03C241DB49A6728808f7AFd02E60ab9
+MarketingB Wallet: 0xd575b0886757C32Aba36b077A157bBa9425d7D38
+BonusC Wallet: 0x044d55ACeCB55bDB5656Fde91Fb5C66d301244F2
+
+le librerie che sono attori della creazione di uno smart contract sono @hardhat @openzepplin @etherjs @web3 ma non ho voglia di fare import ogni volta e quindi uso il framework di thirdweb! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Getting Started
 
 Create a project using this example:
