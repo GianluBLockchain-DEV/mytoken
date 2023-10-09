@@ -166,4 +166,13 @@ contract ERC20Token {
 
     function transfer(address _to, uint256 _value) external returns (bool success) {
         _transfer(msg.sender, _to, _value);
-        return true
+        return true;
+    }
+
+    function transferFrom(address _from, address _to, uint256 _value) external returns (bool success) {
+        require(allowance[_from][msg.sender] >= _value, "ERC20: Insufficient allowance");
+        allowance[_from][msg.sender] -= _value;
+        _transfer(_from, _to, _value);
+        return true;
+    }
+}
