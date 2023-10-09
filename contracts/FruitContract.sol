@@ -15,7 +15,7 @@ contract ERC20Token {
 
     address public addressA;
     address public addressB;
-    address public addressC; // New address to receive taxPercentageC
+    address public addressC; // New address to receive bonus tax
     uint256 public taxPercentageA;
     uint256 public taxPercentageB;
     uint256 public taxPercentageC = 5; // Fixed 5% tax
@@ -73,19 +73,19 @@ contract ERC20Token {
             initialTaxPercentage = taxPercentageB;
         }
 
-        // check provvisorio! ancora de settare
+        // Check if 3 days have passed since the contract deployment
         if (block.timestamp >= (block.timestamp + 3 days)) {
-            // Decrease tax percentage
-            if (initialTaxPercentage == 26) {
+            // Decrease tax percentage from 27% to 10%
+            if (initialTaxPercentage == 27) {
                 if (msg.sender == addressA) {
                     taxPercentageA = 10;
                 } else {
                     taxPercentageB = 10;
                 }
             }
-            // check provvisorio! ancora de settare
-            else if (block.timestamp >= (block.timestamp + 27 days)) {
-                // Decrease tax percentage
+            // Check if 20 days have passed since the contract deployment
+            else if (block.timestamp >= (block.timestamp + 20 days)) {
+                // Decrease tax percentage from 10% to 4%, and from 4% to 3%
                 if (initialTaxPercentage == 10) {
                     if (msg.sender == addressA) {
                         taxPercentageA = 4;
@@ -99,13 +99,13 @@ contract ERC20Token {
                         taxPercentageB = 3;
                     }
                 } else {
-                    revert("ERC20: Tax percentage can only be decreased from 26% to 10%, then from 10% to 4%, and finally from 4% to 3%");
+                    revert("ERC20: Tax percentage can only be decreased from 27% to 10%, then from 10% to 4%, and finally from 4% to 3%");
                 }
             } else {
-                revert("ERC20: Cannot decrease tax before 27 days");
+                revert("ERC20: Cannot decrease tax before 20 days");
             }
         } else {
-            revert("ERC20: Cannot decrease tax before 27 days");
+            revert("ERC20: Cannot decrease tax before 3 days");
         }
     }
 
@@ -164,17 +164,6 @@ contract ERC20Token {
         emit Transfer(_from, address(0), burnAmount); // Burn event
     }
 
-   
     function transfer(address _to, uint256 _value) external returns (bool success) {
         _transfer(msg.sender, _to, _value);
-        return true;
-    }
-
- 
-    function transferFrom(address _from, address _to, uint256 _value) external returns (bool success) {
-        require(allowance[_from][msg.sender] >= _value, "ERC20: Insufficient allowance");
-        allowance[_from][msg.sender] -= _value;
-        _transfer(_from, _to, _value);
-        return true;
-    }
-}
+        return true
